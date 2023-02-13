@@ -1,10 +1,17 @@
 export interface Team {
+  code?: string;
+  country?: string;
+  founded?: number;
   id: number;
-  name: string;
-  founded: number;
   logo: string;
+  name: string;
+  national?: boolean;
 }
 
+export interface Teams {
+  team: Team;
+  venue: any;
+}
 export interface TeamStatistics {
   league: {};
   team: Team;
@@ -247,4 +254,53 @@ export interface League {
     type: string;
     logo: string;
   };
+}
+
+export interface Standing {
+  league: {
+    id: number;
+    country: string;
+    name: string;
+    logo: string;
+    season: number;
+    standings: {
+      rank: number;
+      team: Team;
+      points: number;
+      goalsDiff: number;
+      group: string;
+      form: string;
+      description: string;
+      all: {
+        played: number;
+        win: number;
+        draw: number;
+        lose: number;
+        goals: { for: number; against: number };
+      };
+      home: {
+        played: number;
+        win: number;
+        draw: number;
+        lose: number;
+        goals: { for: number; against: number };
+      };
+      away: {
+        played: number;
+        win: number;
+        draw: number;
+        lose: number;
+        goals: { for: number; against: number };
+      };
+      update: string;
+    }[][]
+  };
+};
+
+export interface TeamRank {
+  rank: number;
+  team: Team;
+  points: number;
+  goalsDiff: number;
+  form: string;
 }

@@ -5,85 +5,74 @@ import { getLeagues } from "../utils/apis";
 
 import { league } from "../utils/data";
 import { League } from "../utils/types";
+import SportCard from "../components/SportCard";
+
+const sport = [
+  {
+    name: "Football",
+    image:
+      "https://img.freepik.com/free-vector/vector-isolated-realistic-soccer-ball-white_1284-41932.jpg?w=826&t=st=1675935812~exp=1675936412~hmac=3cdbe6880db3b928cf6982335e8a1ef09c4f22f4f134d0927c1399fcd7a2410c",
+  },
+  {
+    name: "Baseball",
+    image:
+      "https://img.freepik.com/free-vector/doodle-baseball_1034-761.jpg?w=826&t=st=1675966496~exp=1675967096~hmac=b83237094d484339f82a3dc46c06dbd5284d8a0fa0f122238e16f26836276b2e",
+  },
+  {
+    name: "Volleybal",
+    image:
+      "https://img.freepik.com/premium-vector/ball-volly-illustration_320979-35.jpg?w=826",
+  },
+  {
+    name: "Basketball",
+    image:
+      "https://img.freepik.com/free-vector/ball_1308-18679.jpg?t=st=1675966608~exp=1675967208~hmac=5925ac51a41a951075b03d48703fb50774476e96528d996100907846d1972383",
+  },
+];
 
 export default function Root() {
-  const [leagues, setLeagues] = useState<League[]>([]);
-
-  const [selected, setSelected] = useState<number | undefined>(0);
-  const [open, setOpen] = useState<boolean>(false);
-
-  const { data } = useQuery({ queryKey: ["leagues"], queryFn: getLeagues });
-
-  const selectSport = (id: number) => {
-    setSelected(id);
-    setOpen(true);
-  };
-
-  const unSelectSport = () => {
-    setSelected(0);
-    setOpen(false);
-  };
-
   return (
-    <section className="relative flex bg-[#000000] w-full min-h-screen">
-      <div className="flex flex-col items-start w-full sm:1/3 md:w-[40%] lg:w-1/4 h-screen bg-[#141414] px-8 min-h-screen">
+    <div className="flex w-[94%] h-[94%] bg-[#000] rounded-[30px] overflow-hidden">
+      <div className="w-1/4 lg:w-1/5 min-h-screen bg-[#141414] py-12 px-8 flex flex-col">
         <div className="flex items-center gap-4 w-full">
           <img
             src="https://th.bing.com/th/id/R.b481350ffd75f7192ba3bf64bae22fad?rik=02EMHLxyW5s60Q&pid=ImgRaw&r=0"
             alt="logo"
             className="h-6 w-6 object-cover rounded-full scale-150"
           />
-          <Link to="/" className="my-8 w-full">
-            Football Leagues
+          <Link to="/" className="w-full">
+            Sportial
           </Link>
         </div>
 
-        <h4 className="text-[12px] my-4 text-[#777]">Sport</h4>
+        <h4 className="text-[12px] mb-2 mt-16 text-[#777]">Sports</h4>
 
-        {data?.slice(5, 10).map((leagues: League) => {
-          return (
-            <div className="w-full flex flex-col my-2" key={leagues.league.id}>
-              <div
-                className={`flex items-center justify-between ${
-                  leagues.league.id === selected ? "bg-[#6d32af] " : ""
-                }px-[10px] py-[14px] rounded-md w-full gap-y-6`}
-              >
-                <div className="flex items-center gap-x-2">
-                  <img
-                    src={leagues.league.logo}
-                    alt="logo_ball"
-                    className="h-6 w-6 object-cover rounded-full"
-                  />
-                  <h1 className="">{leagues.league.name}</h1>
-                </div>
-                {open && selected === leagues.league.id ? (
-                  <button onClick={() => unSelectSport()}>Dow</button>
-                ) : (
-                  <button onClick={() => selectSport(leagues.league.id)}>
-                    Up
-                  </button>
-                )}
-              </div>
-              {selected === leagues.league.id ? (
-                <div className="flex items-center gap-x-10 h-full mt-2">
-                  <div className="h-full w-[1px] bg-[#444444] items-center ml-5" />
-                  <div className="flex flex-col gap-y-4">
-                    {league.map((league) => {
-                      return <div key={league.id}>{league.name}</div>;
-                    })}
-                  </div>
-                </div>
-              ) : (
-                <></>
-              )}
-            </div>
-          );
-        })}
+        <div className="max-h-[500px] w-[300px] overflow-y-scroll scrollbar scrollbar1">
+          {sport.map((sport) => {
+            return (
+              <SportCard
+                key={sport.name}
+                sport={sport.name}
+                img={sport.image}
+              />
+            );
+          })}
+        </div>
+
+        <h4 className="text-[12px] mb-2 mt-16 text-[#777]">Other Menu</h4>
+
+        <div className="flex flex-col gap-y-4 mt-4">
+          <Link to="/favourite" className="tracking-widest text-[#666]">
+            Favourites
+          </Link>
+          <Link to="/support" className="tracking-widest text-[#666]">
+            Support
+          </Link>
+        </div>
       </div>
-
-      <div id="detail" className="min-h-screen">
+      <div className="p-4  w-full">
         <Outlet />
       </div>
-    </section>
+    </div>
   );
 }
