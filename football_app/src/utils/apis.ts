@@ -1,5 +1,11 @@
 import http from "./http";
-import { League, Standing, Teams, TeamStatistics } from "./types";
+import {
+  League,
+  MatchFixturesDay,
+  Standing,
+  Teams,
+  TeamStatistics,
+} from "./types";
 
 type TeamResponse = {
   response: Teams[];
@@ -15,6 +21,10 @@ type TeamStatisticsResponse = {
 
 type StandingsResponse = {
   response: Standing[];
+};
+
+type MatchFixturesDayResponse = {
+  response: MatchFixturesDay[];
 };
 export const getLeagues = async (league: string) => {
   if (league === "Football") {
@@ -73,6 +83,16 @@ export const getStanding = async (season: number, league: number) => {
     params: {
       season: season,
       league: league,
+    },
+  });
+
+  return res.data?.response;
+};
+
+export const getMatch = async (date: string) => {
+  const res = await http.get<MatchFixturesDayResponse>("fixtures", {
+    params: {
+      date: date,
     },
   });
 

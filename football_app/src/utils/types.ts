@@ -17,10 +17,26 @@ export interface TeamStatistics {
   team: Team;
   form: string;
   fixtures: {
-    played: {};
-    win: {};
-    draws: {};
-    loses: {};
+    played: {
+      home: number;
+      away: number;
+      total: number;
+    };
+    wins: {
+      home: number;
+      away: number;
+      total: number;
+    };
+    draws: {
+      home: number;
+      away: number;
+      total: number;
+    };
+    loses: {
+      home: number;
+      away: number;
+      total: number;
+    };
   };
   goals: {
     for: {
@@ -165,16 +181,9 @@ export interface TeamStatistics {
     total: number | null;
   };
   lineups: {
-    0: {
-      formation: string;
-    };
-    1?: {
-      formation: string;
-    };
-    2?: {
-      formation: string;
-    };
-  };
+    formation: string;
+    played: number;
+  }[];
   card: {
     yellow: {
       "0-15": {
@@ -293,9 +302,9 @@ export interface Standing {
         goals: { for: number; against: number };
       };
       update: string;
-    }[][]
+    }[][];
   };
-};
+}
 
 export interface TeamRank {
   rank: number;
@@ -303,4 +312,61 @@ export interface TeamRank {
   points: number;
   goalsDiff: number;
   form: string;
+}
+
+export interface MatchFixturesDay {
+  fixture: {
+    id: number;
+    referee: string | null;
+    timestamp: number;
+    timezone: string;
+    date: string;
+    status: {
+      elapsed: string | number | null;
+      long: string;
+      short: string;
+    };
+    periods: {
+      first: number | null;
+      second: number | null;
+    };
+    venue: {
+      city: string;
+      id: number;
+      name: string;
+    };
+  };
+  league: {
+    id: number;
+    name: string;
+    country: string;
+    logo: string;
+  };
+
+  teams: {
+    away: Team;
+    home: Team;
+  };
+  goals: {
+    home: number;
+    away: number;
+  };
+  score: {
+    extratime: {
+      home: number | string | null;
+      away: number | string | null;
+    };
+    fulltime: {
+      home: number | string | null;
+      away: number | string | null;
+    };
+    halftime: {
+      home: number | string | null;
+      away: number | string | null;
+    };
+    penalty: {
+      home: number | string | null;
+      away: number | string | null;
+    };
+  };
 }

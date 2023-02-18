@@ -9,7 +9,7 @@ const PremierLeague = () => {
     <div className="p-8 bg-[#141414] h-full w-full rounded-[30px]">
       <HeaderLeague selected={selected} setSelected={setSelected} />
 
-      <div className="mt-12 mb-4">
+      <div className="mt-6 mb-2">
        
           <Outlet context={[selected]} />
         

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { getLeagues } from '../utils/apis';
-import { useQuery } from '@tanstack/react-query';
+import React, { useState } from "react";
+import { getLeagues } from "../utils/apis";
+import { useQuery } from "@tanstack/react-query";
 
 type SportProps = {
   sport: string;
@@ -26,7 +26,7 @@ const SportCard: React.FC<SportProps> = (sport) => {
   // });
   return (
     <div className="lg:w-[280px] md:w-[140px] sm:w-[100px]  flex flex-col my-2">
-      {/* <div
+      <div
         className={`flex items-center justify-between  bg-[#6d32af] 
         px-[10px] py-[14px] rounded-lg w-full gap-y-6 sticky`}
       >
@@ -50,7 +50,7 @@ const SportCard: React.FC<SportProps> = (sport) => {
           ></button>
         )}
       </div>
-      <div>
+      {/* <div>
         {open ? (
           <div className="flex items-center gap-x-10 h-full mt-2">
             <div className="h-full w-[1px] bg-[#444444] items-center ml-5" />

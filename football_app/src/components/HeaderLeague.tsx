@@ -18,8 +18,8 @@ const HeaderLeague: React.FC<HeaderProps> = ({ selected, setSelected }) => {
   //   queryFn: () => getTeam(39, selected),
   // });
   return (
-    <div>
-      <div className="flex items-center gap-x-4">
+    <header>
+      <section className="flex items-center gap-x-4">
         <img
           src="https://flyclipart.com/thumb2/premier-league-lions-head-vector-logo-free-vector-silhouette-191602.png"
           alt="premier league"
@@ -38,9 +38,9 @@ const HeaderLeague: React.FC<HeaderProps> = ({ selected, setSelected }) => {
               return <TeamCard key={team.team.id} data={team.team} />;
             })} */}
         </div>
-      </div>
+      </section>
 
-      <div className="flex gap-x-2 items-center mt-2">
+      <section className="flex gap-x-2 items-center mt-2">
         <h1 className="capitalize">Session : </h1>
         <div className="flex gap-x-8">
           {session.map((session) => {
@@ -49,7 +49,7 @@ const HeaderLeague: React.FC<HeaderProps> = ({ selected, setSelected }) => {
                 key={session}
                 className={`${
                   selected === session ? "bgGradient" : ""
-                } bg-[#1a1a1a] p-2 rounded-md`}
+                } bg-[#1a1a1a] p-2 rounded-md boxSha`}
                 onClick={() => setSelected(session)}
               >
                 {session}
@@ -57,10 +57,10 @@ const HeaderLeague: React.FC<HeaderProps> = ({ selected, setSelected }) => {
             );
           })}
         </div>
-      </div>
+      </section>
 
       <div className="h-[2px] w-full bg-black mt-4"></div>
-    </div>
+    </header>
   );
 };
 
