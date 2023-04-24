@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getLeagues } from "../utils/apis";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 type SportProps = {
   sport: string;
@@ -20,10 +21,10 @@ const SportCard: React.FC<SportProps> = (sport) => {
     setOpen(false);
   };
 
-  // const { data } = useQuery({
-  //   queryKey: ["football_league", selected],
-  //   queryFn: () => getLeagues(selected),
-  // });
+  const { data } = useQuery({
+    queryKey: ["football_league", selected],
+    queryFn: () => getLeagues(selected),
+  });
   return (
     <div className="lg:w-[280px] md:w-[140px] sm:w-[100px]  flex flex-col my-2">
       <div
@@ -50,7 +51,7 @@ const SportCard: React.FC<SportProps> = (sport) => {
           ></button>
         )}
       </div>
-      {/* <div>
+      <div>
         {open ? (
           <div className="flex items-center gap-x-10 h-full mt-2">
             <div className="h-full w-[1px] bg-[#444444] items-center ml-5" />
@@ -62,7 +63,9 @@ const SportCard: React.FC<SportProps> = (sport) => {
                       src={league.league.logo}
                       className="h-6 w-6 object-cover rounded-full"
                     />
-                    <h1>{league.league.name}</h1>
+                    <Link to="/premierleague">
+                      <h1>{league.league.name}</h1>
+                    </Link>
                   </div>
                 );
               })}
@@ -71,7 +74,7 @@ const SportCard: React.FC<SportProps> = (sport) => {
         ) : (
           <div className="hidden"></div>
         )}
-      </div> */}
+      </div>
     </div>
   );
 };

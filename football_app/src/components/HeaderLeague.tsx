@@ -13,10 +13,10 @@ interface HeaderProps {
   setSelected: React.Dispatch<React.SetStateAction<number>>;
 }
 const HeaderLeague: React.FC<HeaderProps> = ({ selected, setSelected }) => {
-  // const { data } = useQuery({
-  //   queryKey: ["team", selected],
-  //   queryFn: () => getTeam(39, selected),
-  // });
+  const { data } = useQuery({
+    queryKey: ["team", selected],
+    queryFn: () => getTeam(39, selected),
+  });
   return (
     <header>
       <section className="flex items-center gap-x-4">
@@ -30,13 +30,13 @@ const HeaderLeague: React.FC<HeaderProps> = ({ selected, setSelected }) => {
         </h1>
 
         <div className="flex gap-x-2">
-          {/* {data
+          {data
             ?.sort((a, b) => {
               return a.team.name.localeCompare(b.team.name);
             })
             .map((team: Teams) => {
               return <TeamCard key={team.team.id} data={team.team} />;
-            })} */}
+            })}
         </div>
       </section>
 

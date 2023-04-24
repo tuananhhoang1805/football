@@ -98,3 +98,12 @@ export const getMatch = async (date: string) => {
 
   return res.data?.response;
 };
+
+export const getPlayersByFixturesStatistics = async (
+  fixture: string | number
+) => {
+  const res = await http.get("fixtures/players", {
+    params: { fixture: fixture },
+  });
+  return res.data?.response;
+};

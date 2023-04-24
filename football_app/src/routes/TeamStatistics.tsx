@@ -9,14 +9,14 @@ const TeamStatistics = () => {
   const { teamId } = useParams();
   const [selected] = useOutletContext<number[]>();
   const [selectModel, setSeclectModel] = useState<string>("");
-  // const { data } = useQuery({
-  //   queryKey: ["teamStatistics", selected, teamId],
-  //   queryFn: () => getTeamStatistics(39, selected, teamId),
-  // });
+  const { data } = useQuery({
+    queryKey: ["teamStatistics", selected, teamId],
+    queryFn: () => getTeamStatistics(39, selected, teamId),
+  });
 
   return (
     <div className="flex flex-col gap-y-4">
-      {/* <div className="bgGradient p-4 w-full flex justify-around items-center">
+      <div className="bgGradient p-4 w-full flex justify-around items-center">
         <div className="flex flex-col justify-center items-center">
           <img
             src={data?.team.logo}
@@ -25,7 +25,7 @@ const TeamStatistics = () => {
           />
           <h1>{data?.team.name}</h1>
         </div>
-      </div> */}
+      </div>
 
       <div className="flex gap-x-4">
         {model.map((model) => {
@@ -42,7 +42,7 @@ const TeamStatistics = () => {
           );
         })}
       </div>
-      {/* {selectModel === "fixtures" && (
+      {selectModel === "fixtures" && (
         <div className="flex flex-col gap-y-4 w-full h-full">
           <div className="bg-[#000] flex justify-center items-center p-12 flex-col rounded-[30px] gap-4">
             <div>Stats in {data?.fixtures.played.total} games</div>
@@ -287,7 +287,7 @@ const TeamStatistics = () => {
             </div>
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 };

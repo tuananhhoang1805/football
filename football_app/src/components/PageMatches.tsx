@@ -8,16 +8,15 @@ const PageMatches = () => {
   const newDate = date.toLocaleDateString("sv-SE").toString();
   const [selectDate, setSelectDate] = useState<string>(newDate);
 
-  // const { data: matches } = useQuery({
-  //   queryKey: ["matches", selectDate],
-  //   queryFn: () => getMatch(selectDate),
-  // });
+  const { data: matches, isLoading } = useQuery({
+    queryKey: ["matches", selectDate],
+    queryFn: () => getMatch(selectDate),
+  });
 
-  // const dataPremier = matches?.filter((league) => {
-  //   return league.league.id === 39;
-  // });
+  const dataPremier = matches?.filter((league) => {
+    return league.league.id === 39;
+  });
 
-  // console.log(dataPremier);
   return (
     <div>
       <div>
@@ -32,9 +31,15 @@ const PageMatches = () => {
       </div>
       <div className="overflow-y-scroll scrollbar scrollbar1 h-[550px]">
         <div className="mt-4 flex flex-wrap gap-8 relative h-[550px] w-full">
-          {matches?.map((match) => {
-            return <Match key={match.fixture.id} match={match} />;
-          })}
+          {isLoading ? (
+            <div className="">
+              Loading...
+            </div>
+          ) : (
+            dataPremier?.map((match) => {
+              return <Match key={match.fixture.id} match={match} />;
+            })
+          )}
         </div>
       </div>
     </div>

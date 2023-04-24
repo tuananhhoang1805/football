@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getTeamStatistics } from "../utils/apis";
+import {
+  getPlayersByFixturesStatistics,
+  getTeamStatistics,
+} from "../utils/apis";
 import { MatchFixturesDay } from "../utils/types";
 
 interface MatchProps {
@@ -36,8 +39,16 @@ const Match: React.FC<MatchProps> = ({ match }) => {
   const time = getTime(match.fixture.timestamp);
   const day = getDay(match.fixture.timestamp);
 
+  const { data } = useQuery({
+    queryKey: ["player", match.fixture.id],
+    queryFn: () => getPlayersByFixturesStatistics(match.fixture.id),
+  });
+
+  console.log(match);
+
   return (
     <div>
+      {!match && <div className="flex justify-center items-center">No match found</div>}
       <div
         className={`w-[420px] h-[200px] rounded-[30px] bg-[#1f1f1f] text-white relative boxSha justify-center `}
       >
@@ -82,10 +93,10 @@ const Match: React.FC<MatchProps> = ({ match }) => {
         </div>
       </div>
       {openDetails && (
-        <div className="w-[1320px] h-[530px] bg-[#424242] absolute top-0 left-0 flex rounded-[30px] z-10">
+        <div className="w-full h-[530px] bg-[#424242] absolute top-0 left-0 flex rounded-[30px] z-10">
           <div
             onClick={() => setOpenDetails(false)}
-            className="text-white absolute top-4 right-4"
+            className="text-white absolute top-4 right-4 cursor-pointer"
           >
             Close
           </div>

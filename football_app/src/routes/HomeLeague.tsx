@@ -14,22 +14,22 @@ const HomeLeague = () => {
   const [selectModel, setSeclectModel] = useState<string>("standings");
 
   const navigate = useNavigate();
-  const data: any[] = [];
+  // const data: any[] = [];
 
-  // const { data } = useQuery({
-  //   queryKey: ["standing", selected],
-  //   queryFn: () => getStanding(selected, 39),
-  // });
+  const { data } = useQuery({
+    queryKey: ["standing", selected],
+    queryFn: () => getStanding(selected, 39),
+  });
 
-  // const team = data?.map((team) => {
-  //   return team.league;
-  // });
+  const team = data?.map((team) => {
+    return team.league;
+  });
 
-  // const rank = team?.map((team) => {
-  //   return team.standings.map((standing) => {
-  //     return standing;
-  //   });
-  // });
+  const rank = team?.map((team) => {
+    return team.standings.map((standing) => {
+      return standing;
+    });
+  });
 
   const handleGoTeam = (id: number) => {
     console.log("handleGoTeam", id);
@@ -53,7 +53,7 @@ const HomeLeague = () => {
         })}
       </div>
 
-      {/* {selectModel === "standings" && (
+      {selectModel === "standings" && (
         <div className="w-4/5">
           <div className="flex flex-col">
             {team?.map((team) => {
@@ -112,6 +112,7 @@ const HomeLeague = () => {
                     return stand.map((rank) => {
                       return (
                         <tr
+                          key={rank.rank}
                           className="cardBg border-spacing-3.5"
                           onClick={() => handleGoTeam(rank.team.id)}
                         >
@@ -142,9 +143,10 @@ const HomeLeague = () => {
                             {rank.points}
                           </td>
                           <td className="text-center flex justify-center items-center">
-                            {rank.form.split("").map((form) => {
+                            {rank.form.split("").map((form, index) => {
                               return (
                                 <span
+                                  key={index}
                                   className={`form ${
                                     form === "W"
                                       ? "win"
@@ -167,7 +169,7 @@ const HomeLeague = () => {
             </table>
           </div>
         </div>
-      )} */}
+      )}
 
       {selectModel === "matches" && (
         <div className="w-full">
